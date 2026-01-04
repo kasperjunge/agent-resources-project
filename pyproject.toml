@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "skill-add"
-version = "0.1.0"
-description = "Add Claude Code skills from GitHub to your project"
+version = "0.2.0"
+description = "Add Claude Code skills, commands, and agents from GitHub to your project"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -15,7 +15,9 @@ dependencies = [
 ]
 
 [project.scripts]
-skill-add = "skill_add.cli:app"
+skill-add = "skill_add.cli.skill:app"
+command-add = "skill_add.cli.command:app"
+agent-add = "skill_add.cli.agent:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/skill_add"]
