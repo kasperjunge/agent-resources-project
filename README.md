@@ -35,10 +35,6 @@ uvx add-command <username>/<command-name>   # Slash commands
 uvx add-agent <username>/<agent-name>       # Sub-agents
 ```
 
-**Options:**
-- `--global` / `-g` — Install to `~/.claude/` (available in all projects)
-- `--overwrite` — Replace existing resource
-
 ---
 
 ## 🚀 Create Your Own
