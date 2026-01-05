@@ -4,6 +4,8 @@
 
 **Share and install Claude Code skills, commands, and agents with a single command.**
 
+*Like pip or npm, but for Claude Code resources.*
+
 [![PyPI](https://img.shields.io/pypi/v/agent-resources?color=blue)](https://pypi.org/project/agent-resources/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -18,7 +20,7 @@
 No installation needed. Just run:
 
 ```bash
-uvx skill-add kasperjunge/hello-world
+uvx add-skill kasperjunge/hello-world
 ```
 
 **That's it.** The skill is now available in Claude Code.
@@ -28,15 +30,10 @@ uvx skill-add kasperjunge/hello-world
 ## 📦 Install Any Resource
 
 ```bash
-uvx skill-add <github-username>/<skill-name>       # Skills
-uvx command-add <github-username>/<command-name>   # Slash commands
-uvx agent-add <github-username>/<agent-name>       # Sub-agents
+uvx add-skill <github-username>/<skill-name>       # Skills
+uvx add-command <github-username>/<command-name>   # Slash commands
+uvx add-agent <github-username>/<agent-name>       # Sub-agents
 ```
-
-| Flag | Description |
-|------|-------------|
-| `--global` | Install to `~/.claude/` (available in all projects) |
-| `--overwrite` | Replace if already exists |
 
 ---
 
@@ -65,7 +62,7 @@ your-username/agent-resources/
 Your resources are now installable:
 
 ```bash
-uvx skill-add your-username/my-skill
+uvx add-skill your-username/my-skill
 ```
 
 No publishing. No registry. Push to GitHub and it works.
@@ -76,7 +73,7 @@ No publishing. No registry. Push to GitHub and it works.
 
 Found a useful resource? Share it anywhere:
 
-> *"This skill saves me hours — try `uvx skill-add kasperjunge/hello-world`"*
+> *"This skill saves me hours — try `uvx add-skill kasperjunge/hello-world`"*
 
 **That's the entire onboarding.** One command, zero friction.
 
