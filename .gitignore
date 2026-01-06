@@ -44,4 +44,9 @@ uv.lock
 htmlcov/
 
 .notes/
+
+# Agent resources environment directories
 .claude/
+.opencode/
+.codex/
+.config/opencode/

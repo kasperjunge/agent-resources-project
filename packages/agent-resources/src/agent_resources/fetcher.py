@@ -60,8 +60,73 @@ RESOURCE_CONFIGS: dict[ResourceType, ResourceConfig] = {
     ),
 }
 
+# Pattern-based search for different repository structures
+RESOURCE_SEARCH_PATTERNS = {
+    ResourceType.SKILL: [
+        ".claude/skills/{name}/",  # Current (first for backward compat)
+        "skills/{name}/",  # Anthropics pattern
+        "skill/{name}/",  # opencode pattern
+    ],
+    ResourceType.COMMAND: [
+        ".claude/commands/{name}.md",  # Current
+        "commands/{name}.md",
+        "command/{name}.md",  # opencode pattern
+    ],
+    ResourceType.AGENT: [
+        ".claude/agents/{name}.md",  # Current
+        "agents/{name}.md",
+        "agent/{name}.md",  # opencode pattern
+    ],
+}
+
 # Name of the repository to fetch resources from
 REPO_NAME = "agent-resources"
+
+
+def validate_repository_structure(repo_dir: Path) -> dict:
+    """Simple validation that provides useful feedback"""
+
+    # Check for any recognizable patterns
+    patterns_found = []
+    for pattern in [
+        ".claude/skills",
+        "skills",
+        "skill",
+        ".claude/commands",
+        "commands",
+        "command",
+        ".claude/agents",
+        "agents",
+        "agent",
+    ]:
+        if (repo_dir / pattern).exists():
+            patterns_found.append(pattern)
+
+    # Simple suggestions
+    suggestions = []
+    if not patterns_found:
+        suggestions.append("Repository doesn't match common agent-resources patterns")
+        suggestions.append("Expected: .claude/skills/, skills/, or skill/ directories")
+
+    return {"patterns_found": patterns_found, "suggestions": suggestions}
+
+
+def find_resource_in_repo(
+    repo_dir: Path, resource_type: ResourceType, name: str
+) -> Path | None:
+    """Simple pattern-based search - no caching, no complexity"""
+    config = RESOURCE_CONFIGS[resource_type]
+
+    for pattern in RESOURCE_SEARCH_PATTERNS[resource_type]:
+        search_path = pattern.format(name=name)
+        if config.file_extension and not search_path.endswith(config.file_extension):
+            search_path += config.file_extension
+
+        resource_path = repo_dir / search_path
+        if resource_path.exists():
+            return resource_path
+
+    return None
 
 
 def fetch_resource(
@@ -70,6 +135,7 @@ def fetch_resource(
     dest: Path,
     resource_type: ResourceType,
     overwrite: bool = False,
+    repo: str = "agent-resources",  # Simple repo name override
 ) -> Path:
     """
     Fetch a resource from a user's agent-resources repo and copy it to dest.
@@ -105,9 +171,7 @@ def fetch_resource(
         )
 
     # Download tarball
-    tarball_url = (
-        f"https://github.com/{username}/{REPO_NAME}/archive/refs/heads/main.tar.gz"
-    )
+    tarball_url = f"https://github.com/{username}/{repo}/archive/refs/heads/main.tar.gz"
 
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_path = Path(tmp_dir)
@@ -119,7 +183,7 @@ def fetch_resource(
                 response = client.get(tarball_url)
                 if response.status_code == 404:
                     raise RepoNotFoundError(
-                        f"Repository '{username}/{REPO_NAME}' not found on GitHub."
+                        f"Repository '{username}/{repo}' not found on GitHub."
                     )
                 response.raise_for_status()
 
@@ -134,24 +198,46 @@ def fetch_resource(
         with tarfile.open(tarball_path, "r:gz") as tar:
             tar.extractall(extract_path)
 
-        # Find the resource in extracted content
-        # Tarball extracts to: agent-resources-main/.claude/<type>/<name>[.md]
-        repo_dir = extract_path / f"{REPO_NAME}-main"
+        # Find the resource in extracted content using pattern-based search
+        # Tarball extracts to: <repo>-main/<patterns>
+        repo_dir = extract_path / f"{repo}-main"
 
-        if config.is_directory:
-            resource_source = repo_dir / config.source_subdir / name
-        else:
-            resource_source = repo_dir / config.source_subdir / f"{name}{config.file_extension}"
+        # Use pattern-based search to find the resource
+        resource_source = find_resource_in_repo(repo_dir, resource_type, name)
 
-        if not resource_source.exists():
-            if config.is_directory:
-                expected_location = f"{config.source_subdir}/{name}/"
-            else:
-                expected_location = f"{config.source_subdir}/{name}{config.file_extension}"
-            raise ResourceNotFoundError(
-                f"{resource_type.value.capitalize()} '{name}' not found in {username}/{REPO_NAME}.\n"
-                f"Expected location: {expected_location}"
+        if resource_source is None or not resource_source.exists():
+            patterns_tried = [
+                p.format(name=name) for p in RESOURCE_SEARCH_PATTERNS[resource_type]
+            ]
+            patterns_list = "\n".join([f"- {p}" for p in patterns_tried])
+
+            # Validate repository structure for helpful suggestions
+            validation = validate_repository_structure(repo_dir)
+
+            error_msg = (
+                f"{resource_type.value.capitalize()} '{name}' not found in {username}/{repo}.\n"
+                f"Tried these locations:\n{patterns_list}\n"
             )
+
+            # Add validation suggestions if available
+            if validation["suggestions"]:
+                error_msg += "\nRepository structure issues:\n"
+                error_msg += "\n".join([f"• {s}" for s in validation["suggestions"]])
+                error_msg += "\n"
+            elif validation["patterns_found"]:
+                error_msg += (
+                    f"\nFound directories: {', '.join(validation['patterns_found'])}\n"
+                )
+
+            error_msg += (
+                "\nQuick fixes:\n"
+                "• Double-check the resource name\n"
+                "• Try --repo REPO_NAME if using a different repository\n"
+                "• Try --dest PATH for custom installation location\n"
+                f"• Visit https://github.com/{username}/{repo} to verify the resource exists"
+            )
+
+            raise ResourceNotFoundError(error_msg)
 
         # Remove existing if overwriting
         if resource_dest.exists():
@@ -165,8 +251,8 @@ def fetch_resource(
 
         # Copy resource to destination
         if config.is_directory:
-            shutil.copytree(resource_source, resource_dest)
+            shutil.copytree(str(resource_source), str(resource_dest))
         else:
-            shutil.copy2(resource_source, resource_dest)
+            shutil.copy2(str(resource_source), str(resource_dest))
 
     return resource_dest

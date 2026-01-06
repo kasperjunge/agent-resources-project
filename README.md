@@ -35,6 +35,28 @@ uvx add-command <username>/<command-name>   # Slash commands
 uvx add-agent <username>/<agent-name>       # Sub-agents
 ```
 
+### Options for codex, opencode or different repo names
+
+```bash
+# Install from different repository structures
+uvx add-skill username/skill-name --repo different-repo
+
+# Install to different environments
+uvx add-skill username/skill-name --env opencode   # OpenCode
+uvx add-skill username/skill-name --env codex      # Codex
+
+# Custom installation path
+uvx add-skill username/skill-name --dest ./my-path/
+
+# Global installation
+uvx add-skill username/skill-name --global
+```
+
+**Supports multiple repository structures:**
+- `.claude/skills/` (standard)
+- `skills/` (Anthropics style)
+- `skill/` (OpenCode style)
+
 ---
 
 ## 🚀 Create Your Own
