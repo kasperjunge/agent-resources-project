@@ -107,9 +107,9 @@ def create(
             typer.echo("")
             typer.echo("Your agent-resources repo is ready!")
             typer.echo("Others can now install your resources:")
-            typer.echo(f"  uvx add-skill {username}/hello-world")
-            typer.echo(f"  uvx add-command {username}/hello")
-            typer.echo(f"  uvx add-agent {username}/hello-agent")
+            typer.echo(f"  uvx install-skill {username}/hello-world")
+            typer.echo(f"  uvx install-command {username}/hello")
+            typer.echo(f"  uvx install-agent {username}/hello-agent")
         else:
             typer.echo("  Error: Could not create GitHub repository", err=True)
             raise typer.Exit(1)

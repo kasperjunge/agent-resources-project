@@ -1,5 +1,5 @@
 /**
- * CLI for add-skill command.
+ * CLI for install-skill command.
  */
 
 import { Command } from 'commander';
@@ -19,11 +19,11 @@ import {
 } from '../exceptions.js';
 
 /**
- * Create the add-skill CLI command.
+ * Create the install-skill CLI command.
  */
 export function createSkillCommand(): Command {
   const program = new Command()
-    .name('add-skill')
+    .name('install-skill')
     .description('Add Claude Code skills from GitHub to your project.')
     .argument(
       '<skill-ref>',

@@ -1,5 +1,5 @@
 /**
- * Shared CLI utilities for add-skill, add-command, and add-agent.
+ * Shared CLI utilities for install-skill, install-command, and install-agent.
  */
 
 import * as path from 'node:path';

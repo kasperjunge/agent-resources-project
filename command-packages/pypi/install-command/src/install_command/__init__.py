@@ -1,3 +1,3 @@
-"""CLI tool for installing Claude Code commands from GitHub. Coming soon."""
+"""install-command: Install Claude Code slash commands from GitHub."""
 
-__version__ = "0.0.1"
+__version__ = "0.2.0"

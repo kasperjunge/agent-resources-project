@@ -1,3 +1,3 @@
-"""CLI tool for installing Claude Code skills from GitHub. Coming soon."""
+"""install-skill: Install Claude Code skills from GitHub."""
 
-__version__ = "0.0.1"
+__version__ = "0.2.0"

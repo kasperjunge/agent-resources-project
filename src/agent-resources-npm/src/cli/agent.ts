@@ -1,5 +1,5 @@
 /**
- * CLI for add-agent command.
+ * CLI for install-agent command.
  */
 
 import { Command } from 'commander';
@@ -19,11 +19,11 @@ import {
 } from '../exceptions.js';
 
 /**
- * Create the add-agent CLI command.
+ * Create the install-agent CLI command.
  */
 export function createAgentCommand(): Command {
   const program = new Command()
-    .name('add-agent')
+    .name('install-agent')
     .description('Add Claude Code agents from GitHub to your project.')
     .argument(
       '<agent-ref>',

@@ -16,9 +16,9 @@ dependencies = [
 ]
 
 [project.scripts]
-skill-add = "agent_resources.cli.skill:app"
-command-add = "agent_resources.cli.command:app"
-agent-add = "agent_resources.cli.agent:app"
+install-skill = "agent_resources.cli.skill:app"
+install-command = "agent_resources.cli.command:app"
+install-agent = "agent_resources.cli.agent:app"
 create-agent-resources-repo = "agent_resources.cli.create:app"
 
 [tool.hatch.build.targets.wheel]

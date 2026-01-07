@@ -1,4 +1,4 @@
-"""CLI for agent-add command."""
+"""CLI for install-agent command."""
 
 from typing import Annotated
 
@@ -51,8 +51,8 @@ def add(
     current directory (or ~/.claude/agents/ with --global).
 
     Example:
-        agent-add kasperjunge/code-reviewer
-        agent-add kasperjunge/test-writer --global
+        install-agent kasperjunge/code-reviewer
+        install-agent kasperjunge/test-writer --global
     """
     try:
         username, agent_name = parse_resource_ref(agent_ref)

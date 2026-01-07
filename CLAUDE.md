@@ -21,14 +21,10 @@ agent-resources-project/
 │   └── agent-resources-npm/       # npm core library (future)
 ├── command-packages/
 │   ├── pypi/                      # PyPI wrapper packages
-│   │   ├── add-skill/             # Primary: `uvx add-skill`
-│   │   ├── add-command/           # Primary: `uvx add-command`
-│   │   ├── add-agent/             # Primary: `uvx add-agent`
-│   │   ├── create-agent-resources-repo/
-│   │   ├── skill-add/             # DEPRECATED (use add-skill)
-│   │   ├── command-add/           # DEPRECATED (use add-command)
-│   │   ├── agent-add/             # DEPRECATED (use add-agent)
-│   │   └── <placeholder packages>
+│   │   ├── install-skill/         # `uvx install-skill`
+│   │   ├── install-command/       # `uvx install-command`
+│   │   ├── install-agent/         # `uvx install-agent`
+│   │   └── create-agent-resources-repo/
 │   └── npm/                       # npm wrapper packages (future)
 ├── CLAUDE.md
 └── README.md
@@ -36,15 +32,10 @@ agent-resources-project/
 
 **Primary usage pattern** is via uvx for one-off execution:
 ```bash
-# Primary commands (recommended):
-uvx add-skill <username>/<skill-name>
-uvx add-command <username>/<command-name>
-uvx add-agent <username>/<agent-name>
-
-# Deprecated (still work, but use primary instead):
-uvx skill-add <username>/<skill-name>
-uvx command-add <username>/<command-name>
-uvx agent-add <username>/<agent-name>
+uvx install-skill <username>/<skill-name>
+uvx install-command <username>/<command-name>
+uvx install-agent <username>/<agent-name>
+uvx create-agent-resources-repo
 ```
 
 The wrapper packages in `command-packages/pypi/` exist to enable this clean uvx UX. They are thin wrappers that depend on `agent-resources`, which contains the shared core logic.

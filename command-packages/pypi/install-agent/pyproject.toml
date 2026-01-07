@@ -4,14 +4,17 @@ build-backend = "hatchling.build"
 
 [project]
 name = "install-agent"
-version = "0.0.1"
-description = "CLI tool for installing Claude Code agents from GitHub. Coming soon."
+version = "0.2.0"
+description = "Install Claude Code sub-agents from GitHub to your project"
+readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-keywords = ["claude", "claude-code", "ai", "agent"]
+dependencies = [
+    "agent-resources>=0.1.0",
+]
 
-[project.urls]
-Repository = "https://github.com/kasperjunge/agent-resources"
+[project.scripts]
+install-agent = "agent_resources.cli.agent:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/install_agent"]

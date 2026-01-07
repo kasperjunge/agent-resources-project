@@ -1,5 +1,5 @@
 /**
- * CLI for add-command command.
+ * CLI for install-command command.
  */
 
 import { Command } from 'commander';
@@ -19,11 +19,11 @@ import {
 } from '../exceptions.js';
 
 /**
- * Create the add-command CLI command.
+ * Create the install-command CLI command.
  */
 export function createCommandCommand(): Command {
   const program = new Command()
-    .name('add-command')
+    .name('install-command')
     .description('Add Claude Code commands from GitHub to your project.')
     .argument(
       '<command-ref>',

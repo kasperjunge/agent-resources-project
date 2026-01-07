@@ -13,9 +13,9 @@
     "./cli/create": "./dist/cli/create.js"
   },
   "bin": {
-    "add-skill": "./bin/add-skill.js",
-    "add-command": "./bin/add-command.js",
-    "add-agent": "./bin/add-agent.js",
+    "install-skill": "./bin/install-skill.js",
+    "install-command": "./bin/install-command.js",
+    "install-agent": "./bin/install-agent.js",
     "create-agent-resources-repo": "./bin/create-agent-resources-repo.js"
   },
   "files": [
