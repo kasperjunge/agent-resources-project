@@ -70,6 +70,7 @@ def fetch_resource(
     dest: Path,
     resource_type: ResourceType,
     overwrite: bool = False,
+    host: str = "github.com",
 ) -> Path:
     """
     Fetch a resource from a user's agent-resources repo and copy it to dest.
@@ -80,6 +81,7 @@ def fetch_resource(
         dest: Destination directory (e.g., .claude/skills/, .claude/commands/)
         resource_type: Type of resource (SKILL, COMMAND, or AGENT)
         overwrite: Whether to overwrite existing resource
+        host: Repository host (default: github.com)
 
     Returns:
         Path to the installed resource
@@ -106,7 +108,7 @@ def fetch_resource(
 
     # Download tarball
     tarball_url = (
-        f"https://github.com/{username}/{REPO_NAME}/archive/refs/heads/main.tar.gz"
+        f"https://{host}/{username}/{REPO_NAME}/archive/refs/heads/main.tar.gz"
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -119,7 +121,7 @@ def fetch_resource(
                 response = client.get(tarball_url)
                 if response.status_code == 404:
                     raise RepoNotFoundError(
-                        f"Repository '{username}/{REPO_NAME}' not found on GitHub."
+                        f"Repository '{username}/{REPO_NAME}' not found on {host}."
                     )
                 response.raise_for_status()
 

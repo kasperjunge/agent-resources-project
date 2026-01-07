@@ -35,6 +35,12 @@ uvx add-command <username>/<command-name>   # Slash commands
 uvx add-agent <username>/<agent-name>       # Sub-agents
 ```
 
+To fetch from upd.dev, prefix the host:
+
+```bash
+uvx add-skill upd.dev/<username>/<skill-name>
+```
+
 ---
 
 ## 🚀 Create Your Own

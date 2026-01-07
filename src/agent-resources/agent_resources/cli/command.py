@@ -24,7 +24,10 @@ def add(
     command_ref: Annotated[
         str,
         typer.Argument(
-            help="Command to add in format: <username>/<command-name>",
+            help=(
+                "Command to add in format: <username>/<command-name> or "
+                "<host>/<username>/<command-name>"
+            ),
             metavar="USERNAME/COMMAND-NAME",
         ),
     ],
@@ -55,7 +58,7 @@ def add(
         command-add kasperjunge/review-pr --global
     """
     try:
-        username, command_name = parse_resource_ref(command_ref)
+        host, username, command_name = parse_resource_ref(command_ref)
     except typer.BadParameter as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)
@@ -66,9 +69,9 @@ def add(
     try:
         with fetch_spinner():
             command_path = fetch_resource(
-                username, command_name, dest, ResourceType.COMMAND, overwrite
+                username, command_name, dest, ResourceType.COMMAND, overwrite, host=host
             )
-        print_success_message("command", command_name, username)
+        print_success_message("command", host, command_name, username)
     except RepoNotFoundError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)

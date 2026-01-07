@@ -24,7 +24,10 @@ def add(
     skill_ref: Annotated[
         str,
         typer.Argument(
-            help="Skill to add in format: <username>/<skill-name>",
+            help=(
+                "Skill to add in format: <username>/<skill-name> or "
+                "<host>/<username>/<skill-name>"
+            ),
             metavar="USERNAME/SKILL-NAME",
         ),
     ],
@@ -55,7 +58,7 @@ def add(
         skill-add kasperjunge/analyze-paper --global
     """
     try:
-        username, skill_name = parse_resource_ref(skill_ref)
+        host, username, skill_name = parse_resource_ref(skill_ref)
     except typer.BadParameter as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)
@@ -66,9 +69,9 @@ def add(
     try:
         with fetch_spinner():
             skill_path = fetch_resource(
-                username, skill_name, dest, ResourceType.SKILL, overwrite
+                username, skill_name, dest, ResourceType.SKILL, overwrite, host=host
             )
-        print_success_message("skill", skill_name, username)
+        print_success_message("skill", host, skill_name, username)
     except RepoNotFoundError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)

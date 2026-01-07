@@ -24,7 +24,10 @@ def add(
     agent_ref: Annotated[
         str,
         typer.Argument(
-            help="Agent to add in format: <username>/<agent-name>",
+            help=(
+                "Agent to add in format: <username>/<agent-name> or "
+                "<host>/<username>/<agent-name>"
+            ),
             metavar="USERNAME/AGENT-NAME",
         ),
     ],
@@ -55,7 +58,7 @@ def add(
         agent-add kasperjunge/test-writer --global
     """
     try:
-        username, agent_name = parse_resource_ref(agent_ref)
+        host, username, agent_name = parse_resource_ref(agent_ref)
     except typer.BadParameter as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)
@@ -66,9 +69,9 @@ def add(
     try:
         with fetch_spinner():
             agent_path = fetch_resource(
-                username, agent_name, dest, ResourceType.AGENT, overwrite
+                username, agent_name, dest, ResourceType.AGENT, overwrite, host=host
             )
-        print_success_message("agent", agent_name, username)
+        print_success_message("agent", host, agent_name, username)
     except RepoNotFoundError as e:
         typer.echo(f"Error: {e}", err=True)
         raise typer.Exit(1)
