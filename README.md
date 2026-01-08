@@ -1,6 +1,6 @@
 <div align="center">
 
-# agent-resources
+# 🧩 agent-resources
 
 **Share and install Claude Code skills, commands, and agents with a single command.**
 
