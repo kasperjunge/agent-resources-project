@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ars"
+version = "0.0.1"
+description = "Reserved package name for agent-resources project"
+requires-python = ">=3.10"
+license = "MIT"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ars"]

@@ -45,7 +45,11 @@ htmlcov/
 
 .notes/
 
+# MkDocs build output
+docs/guide/
+
 # Node.js
 node_modules/
 package-lock.json
 .env
+.research/
