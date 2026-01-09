@@ -1,3 +1,0 @@
-# install-package
-
-Placeholder package.
