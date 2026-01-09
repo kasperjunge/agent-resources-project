@@ -1,0 +1,24 @@
+site_name: agent-resources
+site_url: https://kasperjunge.github.io/agent-resources/site/
+site_description: Share and install Claude Code skills, commands, and sub-agents
+repo_url: https://github.com/kasperjunge/agent-resources
+repo_name: kasperjunge/agent-resources
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    scheme: default
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
