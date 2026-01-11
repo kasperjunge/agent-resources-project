@@ -55,7 +55,7 @@ Your repo must follow this structure:
         │   └── my-skill/
         │       └── SKILL.md
         └── prompts/
-            └── my-command.md
+            └── my-command.prompt.md
     ```
 
 === "OpenCode"
@@ -63,12 +63,12 @@ Your repo must follow this structure:
     ```
     your-repo/
     └── .opencode/
-        ├── skills/
+        ├── skill/
         │   └── my-skill/
         │       └── SKILL.md
-        ├── commands/
+        ├── command/
         │   └── my-command.md
-        └── agents/
+        └── agent/
             └── my-agent.md
     ```
 
@@ -95,8 +95,8 @@ To create individual resources:
 ```bash
 agr init skill my-skill
 agr init command my-command
-agr init subagent my-agent
-agr init package my-package
+agr init agent my-agent
+agr init my-package
 ```
 
 Push to GitHub and you're ready to share.

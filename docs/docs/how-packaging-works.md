@@ -118,8 +118,8 @@ Run `/review` on any file or directory.
         │   └── code-reviewer/
         │       └── SKILL.md
         └── prompts/
-            ├── review.md
-            └── quick-check.md
+            ├── review.prompt.md
+            └── quick-check.prompt.md
     ```
 
 === "OpenCode"
@@ -127,16 +127,16 @@ Run `/review` on any file or directory.
     ```
     my-project/
     └── .opencode/
-        ├── packages/
+        ├── package/
         │   └── code-reviewer/
         │       └── PACKAGE.md
-        ├── skills/
+        ├── skill/
         │   └── code-reviewer/
         │       └── SKILL.md
-        ├── commands/
+        ├── command/
         │   ├── review.md
         │   └── quick-check.md
-        └── agents/
+        └── agent/
             └── reviewer-agent.md
     ```
 
@@ -223,8 +223,8 @@ After `agr install anthropics/code-reviewer`:
         │           └── SKILL.md
         └── prompts/
             └── code-reviewer/
-                ├── review.md
-                └── quick-check.md
+                ├── review.prompt.md
+                └── quick-check.prompt.md
     ```
 
 === "OpenCode"
@@ -232,20 +232,20 @@ After `agr install anthropics/code-reviewer`:
     ```
     user-project/
     └── .opencode/
-        ├── packages/
+        ├── package/
         │   ├── code-reviewer/
         │   │   └── PACKAGE.md
         │   └── security-rules/        # dependency
         │       └── PACKAGE.md
-        ├── skills/
+        ├── skill/
         │   └── code-reviewer/
         │       └── code-reviewer/
         │           └── SKILL.md
-        ├── commands/
+        ├── command/
         │   └── code-reviewer/
         │       ├── review.md
         │       └── quick-check.md
-        └── agents/
+        └── agent/
             └── code-reviewer/
                 └── reviewer-agent.md
     ```

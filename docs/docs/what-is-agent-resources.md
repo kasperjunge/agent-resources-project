@@ -25,7 +25,7 @@ Skills extend your agent with new capabilities. They're directories containing a
 === "OpenCode"
 
     ```
-    .opencode/skills/code-reviewer/
+    .opencode/skill/code-reviewer/
     └── SKILL.md
     ```
 
@@ -66,7 +66,7 @@ Commands give your agent new slash commands to execute. They're markdown files t
 === "OpenCode"
 
     ```
-    .opencode/commands/
+    .opencode/command/
     └── review.md
     ```
 
@@ -81,7 +81,7 @@ Commands give your agent new slash commands to execute. They're markdown files t
 
     ```
     .github/prompts/
-    └── review.md
+    └── review.prompt.md
     ```
 
 ---
@@ -100,7 +100,7 @@ Subagents are specialized agents that your main agent can delegate tasks to. The
 === "OpenCode"
 
     ```
-    .opencode/agents/
+    .opencode/agent/
     └── reviewer-agent.md
     ```
 
@@ -132,7 +132,7 @@ Packages bundle skills, commands, and subagents together. A single package can c
 === "OpenCode"
 
     ```
-    .opencode/packages/code-reviewer/
+    .opencode/package/code-reviewer/
     └── PACKAGE.md
     ```
 

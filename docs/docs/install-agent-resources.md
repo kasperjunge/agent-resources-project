@@ -38,7 +38,7 @@ agr install skill username/skillname
 agr install command username/commandname
 
 # Install a subagent
-agr install subagent username/agentname
+agr install agent username/agentname
 ```
 
 ---
